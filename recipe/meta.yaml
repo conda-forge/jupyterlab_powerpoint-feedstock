@@ -6,28 +6,30 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 866391ef0a8d97de2aabebbc31ab6cb6b74399ba5a3d5879c8876e97534e9a83
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
     - nodejs
     - jupyter-packaging
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - jupyterlab >=1.0.0
     - nbconvert >=5.5.0
     - nbformat >=4.4.0
     - python-pptx >=0.6.0
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - jupyterlab_powerpoint
 
