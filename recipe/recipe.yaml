@@ -1,0 +1,50 @@
+schema_version: 1
+
+context:
+  name: jupyterlab_powerpoint
+  version: "0.1.0"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
+  sha256: 866391ef0a8d97de2aabebbc31ab6cb6b74399ba5a3d5879c8876e97534e9a83
+
+build:
+  number: 1
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - python >=3.7
+    - pip
+    - nodejs
+    - jupyter-packaging
+  run:
+    - python >=3.7
+    - jupyterlab >=1.0.0
+    - nbconvert >=5.5.0
+    - nbformat >=4.4.0
+    - python-pptx >=0.6.0
+
+tests:
+  - python:
+      imports:
+        - jupyterlab_powerpoint
+      pip_check: false
+
+about:
+  license: Apache-2.0
+  license_file: LICENSE
+  summary: Create powerpoints from jupyter notebooks
+  description: |
+    Create powerpoints from jupyter notebooks
+  homepage: http://github.com/timkpaine/jupyterlab_powerpoint
+  repository: https://github.com/timkpaine/jupyterlab_powerpoint
+
+extra:
+  recipe-maintainers:
+    - timkpaine
